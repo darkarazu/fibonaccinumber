@@ -24,7 +24,6 @@
     "@angular/router": "^14.0.0",
     "firebase": "^9.8.3",
     "guid-typescript": "^1.0.9",
-    "moment": "^2.29.3",
     "ng2-currency-mask": "^13.0.3",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

@@ -1,6 +1,7 @@
 <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center">
     
-    <div>Fibonacci Calculator</div>
+    <div fxHide.lt-md>Fibonacci Calculator</div>
+    <div fxShow.lt-md>FC</div>
     
     <div fxLayout="row" fxLayoutAlign="flex-end center">
         <section @fadeIn *ngIf="editingUsername">

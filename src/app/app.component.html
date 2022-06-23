@@ -1,1 +1,21 @@
-<router-outlet></router-outlet>
+<mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center">
+    
+    <div>Fibonacci Calculator</div>
+    
+    <div fxLayout="row" fxLayoutAlign="flex-end center">
+        <section @fadeIn *ngIf="editingUsername">
+            <mat-form-field class="username">
+                <input matInput [(ngModel)]="username" (ngModelChange)="checkUsername()" (blur)="toggleEditUsername()">
+            </mat-form-field>
+            <button mat-icon-button (click)="setUsername()"><mat-icon>check</mat-icon></button>
+        </section>
+        <section @fadeIn *ngIf="!editingUsername" fxLayout="row" fxLayoutAlign="flex-start center">
+            <mat-label>{{ username }}</mat-label>
+            <button mat-icon-button (click)="toggleEditUsername()"><mat-icon>edit</mat-icon></button>
+        </section>
+        <mat-icon>face</mat-icon>
+    </div>
+</mat-toolbar>
+<section class="app-section">
+    <router-outlet></router-outlet>
+</section>

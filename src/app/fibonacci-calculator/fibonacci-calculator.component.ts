@@ -15,7 +15,7 @@ import { calculateNthFibonacciNumber } from '../utils/calculate-fibonacci.util';
   animations: [fadeIn, fadeOut]
 })
 export class FibonacciCalculatorComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
   nthNumber = 0;
 
@@ -29,7 +29,7 @@ export class FibonacciCalculatorComponent implements OnInit {
   username = '';
 
   constructor(private _firebaseService: FirebaseService, private _snackBar: MatSnackBar, private _sessionService: SessionService) {
-    this.setDatasource(0);
+    this.setDatasource(1);
   }
 
   ngOnInit() {
@@ -47,28 +47,36 @@ export class FibonacciCalculatorComponent implements OnInit {
 
   setDatasource(page: number) {
     this.dataSource = new MatTableDataSource<FibonacciNumber>(this.results);
-    this.dataSource.paginator = this.paginator!;
-    this.paginator?.page.next({
-      pageIndex: page,
-      pageSize: this.paginator.pageSize,
-      length: this.paginator.length
-    });
+    if ( this.paginator ) {
+      this.dataSource.paginator = this.paginator!;
+      this.paginator.pageIndex = page;
+      this.paginator!.page.next({
+        pageIndex: page,
+        pageSize: this.paginator!.pageSize,
+        length: this.paginator!.length
+      });
+    }
   }
 
   resultsChangeHandler(results: FibonacciNumber[]) {
     this.results = results.sort( this.sortResults );
+    this.gotoElementPage();
+  }
+
+  private gotoElementPage() {
     let page = 0;
-    if ( this.lastAddedResult ) {
-      const index = results.findIndex(findIndex => findIndex.nthNumber === this.lastAddedResult?.nthNumber);
-      if ( index >= 0 ) {
-        page = Math.ceil(index / this.paginationSize);
+    if (this.lastAddedResult) {
+      const index = this.results.findIndex(findIndex => findIndex.nthNumber === this.lastAddedResult?.nthNumber);
+      if (index >= 0) {
+        page = Math.ceil((index + 1) / this.paginationSize);
       }
     }
-    this.setDatasource(page);
+    this.setDatasource(page  - 1);
   }
 
   calculateNumber() {
-    const alreadyCalculated = this.results.findIndex( findex => findex.nthNumber === this.nthNumber) >= 0;
+    const index = this.results.findIndex( findex => findex.nthNumber === this.nthNumber);
+    const alreadyCalculated = index >= 0;
     if ( !alreadyCalculated ) {
       this.lastAddedResult = {
         nthNumber: this.nthNumber,
@@ -78,6 +86,8 @@ export class FibonacciCalculatorComponent implements OnInit {
       }
       this.saveNumberRequest();
     } else {
+      this.lastAddedResult = {...this.results[index]};
+      this.gotoElementPage();
       this.showAlreadyCalculatedSnackbar();
     }
   }

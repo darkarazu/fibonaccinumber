@@ -36,5 +36,6 @@ export class AppComponent implements OnInit {
     if ( this.username === '' || this.username === undefined || this.username === null ) {
       this.username = this.guestname;
     }
+    this.setUsername();
   }
 }

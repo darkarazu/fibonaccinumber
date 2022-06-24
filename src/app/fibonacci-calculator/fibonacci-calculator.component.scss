@@ -1,0 +1,65 @@
+#fibonacci-calculator {
+
+    padding: 1rem;
+
+
+    .table-container {
+        min-width: 400px;
+        height: min-content;
+        max-height: calc(100vh - 64px - 32px);
+        overflow-y: auto;
+    }
+
+     .user-header {
+        min-width: 90px;
+     }
+     .nth-header {
+        min-width: 40px;
+     }
+     .result-header {
+        min-width: 120px;
+     }
+     .ts-header {
+        min-width: 200px;
+     }
+
+     .highlight {
+        background-color: rgb(131, 174, 255);
+     }
+
+    @media only screen and (max-width: 599px) {
+        .nth-input-form {
+            font-size: 24px;
+            min-width: 300px;
+            .nth-input {
+                font-size: 48px;
+            }
+        }
+        .retrieve-button {
+            font-size: 18px;
+            height: 36px;
+        }
+
+    }
+
+    @media only screen and (min-width: 600px) {
+        .nth-input-form {
+            font-size: 36px;
+            min-width: 300px;
+            .nth-input {
+                font-size: 68px;
+            }
+        }
+        .retrieve-button {
+            font-size: 28px;
+            height: 48px;
+        }
+    }
+
+
+
+
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper {
+        padding-bottom: 0!important;
+}

@@ -43,6 +43,5 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlight': lastAddedResult?.nthNumber === row.nthNumber}"></tr>
     </table>
   <mat-paginator [pageSizeOptions]="[5, 10, 15]" (page)="paginationChanged($event)" aria-label="Select page of users"></mat-paginator>
-     {{ paginator.pageIndex | json }}
   </section>
 </div>
